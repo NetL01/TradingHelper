@@ -1,6 +1,6 @@
 import telebot
 import threading
-from price_manager import PriceManager
+from service.price_manager.price_manager import PriceManager
 from config import TOKEN, CHAT_ID
 import time
 
