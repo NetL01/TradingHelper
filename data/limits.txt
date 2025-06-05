@@ -1,0 +1,2 @@
+suiusdt.low=10000.0
+suiusdt.high=100000.0
