@@ -1,7 +1,7 @@
 import requests
 
 
-def get_fear_greed_index(self):
+def get_fear_greed_index():
     url = "https://api.alternative.me/fng/"
     try:
         response = requests.get(url)
