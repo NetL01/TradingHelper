@@ -1,0 +1,17 @@
+[
+  {
+    "id": "bitcoin",
+    "label": "BTCUSDT",
+    "source": "coingecko"
+  },
+  {
+    "id": "SUIUSDT",
+    "label": "SUIUSDT",
+    "source": "binance"
+  },
+  {
+    "id": "TRUMPUSDT",
+    "label": "TRUMPUSDT",
+    "source": "binance"
+  }
+]
