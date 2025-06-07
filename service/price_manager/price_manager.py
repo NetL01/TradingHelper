@@ -4,9 +4,10 @@ import time
 import os
 import requests
 from beauty.format_nice_output import format_nice_output
+from service.fetchers.get_fear_greed_index import get_fear_greed_index
 
-from service.fetchers.coingecko import get_price_coingecko
-from service.fetchers.binance import get_price_binance
+from service.fetchers.get_price_coingecko import get_price_coingecko
+from service.fetchers.get_price_binance import get_price_binance
 
 
 class PriceManager:
@@ -17,17 +18,6 @@ class PriceManager:
         self.message_id = self.load_message_id()
         self.last_sent_time = 0
 
-    def get_fear_greed_index(self):
-        url = "https://api.alternative.me/fng/"
-        try:
-            response = requests.get(url)
-            data = response.json()
-            value = data['data'][0]['value']
-            classification = data['data'][0]['value_classification']
-            return f"😨 *Fear & Greed Index:* {value} ({classification})"
-        except Exception as e:
-            print("Ошибка получения Fear & Greed Index:", e)
-            return "⚠️ Fear & Greed Index недоступен"
 
     def load_message_id(self):
         if os.path.exists(self.message_id_file):
@@ -37,7 +27,7 @@ class PriceManager:
                     return int(mid)
         return None
 
-    def save_message_id(self, mid):
+    def save_message_id(sprelf, mid):
         with open(self.message_id_file, 'w') as f:
             f.write(str(mid))
         self.message_id = mid
@@ -68,7 +58,7 @@ class PriceManager:
     def send_price_message(self):
         prices = self.get_prices()
         text = format_nice_output(prices, {})
-        text += "\n\n" + self.get_fear_greed_index()
+        text += "\n\n" + get_fear_greed_index()
 
         now = time.time()
         force_new_message = now - self.last_sent_time > 1800
